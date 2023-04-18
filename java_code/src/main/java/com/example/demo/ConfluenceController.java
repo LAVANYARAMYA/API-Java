@@ -26,15 +26,15 @@ public class ConfluenceController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/confluence")
-    public List<String> search(@RequestParam("input") String keyword) {
+    public List<String> search(@RequestParam("input") String keyword,
+                               @RequestParam("service") String service) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(CONFLUENCE_USERNAME, CONFLUENCE_PASSWORD));
-        String searcConfluencehUrl = CONFLUENCE_URL + "/rest/api/content/search?cql=type=page+and+text~'" + keyword + "'";
+        System.out.println(service);
+        String searcConfluencehUrl = CONFLUENCE_URL + "/rest/api/content/search?cql=type=page+and+text~' " + keyword +"'"+ "OR text~'"+service+"'";
         System.out.println(searcConfluencehUrl);
 
         //kibana
-
-
         String confluenceResponse = restTemplate.getForObject(searcConfluencehUrl, String.class);
         System.out.println(confluenceResponse);
         String WebUI="";
