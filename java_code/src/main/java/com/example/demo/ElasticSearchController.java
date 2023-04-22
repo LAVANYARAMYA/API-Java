@@ -25,20 +25,27 @@ public class ElasticSearchController {
     @GetMapping("/elasticsearch")
     public List<String> search(
             @RequestParam("input") String keyword,
-            @RequestParam("startdateString") String startdateString,
-            @RequestParam("enddateString") String enddateString,
-            @RequestParam("startTime") String startTime,
-            @RequestParam("endTime") String endTime)
+            @RequestParam("utcDateStart") String startdateString,
+            @RequestParam("utcDateStart1") String enddateString,
+            @RequestParam("utcTimeStart") String startTime,
+            @RequestParam("utcTimeStart1") String endTime)
     {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String searchKibanaUrl = "http://localhost:9200/logstash*/_search?q=@timestamp:[" ;
-        String timeUrl = startdateString +"T" + "'"+startTime+ "'"+ ":00.000Z TO " + "'"+enddateString+ "'" + "T" +  "'"+endTime + "'"+ ":00.000Z]&format=json" + "&size=50&&q='"+keyword+ "'";
+       // String searchKibanaUrl = "http://localhost:9200/logstash*/_search?q=@timestamp:[" ;
+        //String timeUrl = startdateString +"T" + "'"+startTime+ "'"+ ":00.000Z TO " + "'"+enddateString+ "'" + "T" +  "'"+endTime + "'"+ ":00.000Z]&q='"+keyword+"'"+"&format=json" + "&size=50";
+
+
+        String searchKibanaUrl = "http://localhost:9200/logstash*/_search?q="+ "\"" +keyword +"\""+ " AND @timestamp: [" ;
+
+        String timeUrl = startdateString +"T" +startTime+ ".000Z TO " +enddateString+ "T" +endTime + ".000Z]&size=50";
+
+
+
+       // String url_link= "http://localhost:9200/logstash*/_search?q=trace AND @timestamp: [2023-04-16T18:30:00.000Z TO 2023-04-17T11:30:00.000Z]";
 
         String url_link= searchKibanaUrl+timeUrl;
-
-
 
        System.out.println(url_link);
 
