@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.*;
@@ -18,10 +19,12 @@ import java.util.List;
 public class ConfluenceController {
 
 
-    private static final String CONFLUENCE_URL = "https://lavanyathirumalaisamy.atlassian.net/wiki";
-    private static final String CONFLUENCE_USERNAME = "lavanyaramya1947@gmail.com";
-    private static final String CONFLUENCE_PASSWORD = "ATATT3xFfGF0iXxDdUj39DEksNsMos9GNgCyyzdbg9owurB-voD9WEazHbgmtDNMSvtmDgWL2F_qn9gdjbjKJtXIxuhoOs8vOyMIEfs1R8Enp5Yd9idfkkjMrJDPYmekrpV6r3ANVbllHQ_NE1nkuSqE1nUSYfjztmJWgjduI83KP7kcE8EkGmI=09B5D78C";
-
+    @Value("${confluence.url}")
+    private  final String CONFLUENCE_URL = null;
+    @Value("${confluence.username}")
+    private final String CONFLUENCE_USERNAME =null;
+    @Value("${confluence.password}")
+    private  final String CONFLUENCE_PASSWORD = null;
 
 
     @CrossOrigin(origins = "http://localhost:3000")

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,7 +32,13 @@ import java.util.zip.GZIPInputStream;
 @RestController
 @RequestMapping("/api")
 public class StackController  {
+<<<<<<< HEAD
     private static final String STACKOVERFLOW_URL = "https://api.stackexchange.com/2.3/search?order=desc&sort=activity&intitle=";
+=======
+
+    @Value("${stackoverflow.url}")
+    private  final String STACKOVERFLOW_URL = null;
+>>>>>>> 69446691771744504fe7cd2e3e45c0e64862939d
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/stackoverflow")
