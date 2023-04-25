@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class ElasticSearchController {
 
-   // private static final String KIBANA_URL = "http://localhost:9200/fluentd/_search?q=";
+    @Value("${elasticsearch.url}")
+    private  final String KIBANA_URL = null;
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/elasticsearch")
@@ -37,7 +39,7 @@ public class ElasticSearchController {
         //String timeUrl = startdateString +"T" + "'"+startTime+ "'"+ ":00.000Z TO " + "'"+enddateString+ "'" + "T" +  "'"+endTime + "'"+ ":00.000Z]&q='"+keyword+"'"+"&format=json" + "&size=50";
 
 
-        String searchKibanaUrl = "http://localhost:9200/logstash*/_search?q="+ "\"" +keyword +"\""+ " AND @timestamp: [" ;
+        String searchKibanaUrl = KIBANA_URL+ "\"" +keyword +"\""+ " AND @timestamp: [" ;
 
         String timeUrl = startdateString +"T" +startTime+ ".000Z TO " +enddateString+ "T" +endTime + ".000Z]&size=50";
 

@@ -1,0 +1,12 @@
+
+confluence:
+  url:  https://lavanyathirumalaisamy.atlassian.net/wiki
+  username:  lavanyaramya1947@gmail.com
+  password:  ATATT3xFfGF0iXxDdUj39DEksNsMos9GNgCyyzdbg9owurB-voD9WEazHbgmtDNMSvtmDgWL2F_qn9gdjbjKJtXIxuhoOs8vOyMIEfs1R8Enp5Yd9idfkkjMrJDPYmekrpV6r3ANVbllHQ_NE1nkuSqE1nUSYfjztmJWgjduI83KP7kcE8EkGmI=09B5D78C
+
+elasticsearch:
+  url: http://localhost:9200/logstash*/_search?q=
+
+
+stackoverflow:
+  url: https://api.stackexchange.com/2.3/search?order=desc&sort=activity&intitle='
