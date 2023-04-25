@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -30,15 +32,20 @@ import java.util.zip.GZIPInputStream;
 @RestController
 @RequestMapping("/api")
 public class StackController  {
+<<<<<<< HEAD
+    private static final String STACKOVERFLOW_URL = "https://api.stackexchange.com/2.3/search?order=desc&sort=activity&intitle=";
+=======
 
     @Value("${stackoverflow.url}")
     private  final String STACKOVERFLOW_URL = null;
+>>>>>>> 69446691771744504fe7cd2e3e45c0e64862939d
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/stackoverflow")
     public List<String> search(@RequestParam("input") String keyword) {
+        System.out.println(keyword);
         RestTemplate restTemplate = new RestTemplate();
-        String searchStackUrl = STACKOVERFLOW_URL + keyword + "'"+"&site=stackoverflow";
+        String searchStackUrl = STACKOVERFLOW_URL +"'"+ URLEncoder.encode(keyword, StandardCharsets.UTF_8) + "'"+"&site=stackoverflow";
         System.out.println(searchStackUrl);
           StringBuilder stackResponse = new StringBuilder();
            String WebUI="";

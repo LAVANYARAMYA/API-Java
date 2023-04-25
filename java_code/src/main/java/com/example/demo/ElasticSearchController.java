@@ -30,7 +30,9 @@ public class ElasticSearchController {
             @RequestParam("utcDateStart") String startdateString,
             @RequestParam("utcDateStart1") String enddateString,
             @RequestParam("utcTimeStart") String startTime,
-            @RequestParam("utcTimeStart1") String endTime)
+            @RequestParam("utcTimeStart1") String endTime,
+            @RequestParam("service") String service)
+
     {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -42,7 +44,7 @@ public class ElasticSearchController {
         String searchKibanaUrl = KIBANA_URL+ "\"" +keyword +"\""+ " AND @timestamp: [" ;
 
         String timeUrl = startdateString +"T" +startTime+ ".000Z TO " +enddateString+ "T" +endTime + ".000Z]&size=50";
-
+        String serviceUrl=" AND kubernetes.labels.app='"+service+"'";
 
 
        // String url_link= "http://localhost:9200/logstash*/_search?q=trace AND @timestamp: [2023-04-16T18:30:00.000Z TO 2023-04-17T11:30:00.000Z]";
