@@ -14,11 +14,15 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @RestController
 @RequestMapping("/api")
 public class ElasticSearchController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ElasticSearchController.class);
 
     @Value("${elasticsearch.url}")
     private  final String KIBANA_URL = null;
@@ -34,6 +38,8 @@ public class ElasticSearchController {
             @RequestParam("service") String service)
 
     {
+
+        logger.info("Entered into elasticsearch api call");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -73,6 +79,7 @@ public class ElasticSearchController {
             int noOfLogs = firsthits.get("total").get("value").asInt();
             JsonNode hits = firsthits.get("hits");
             System.out.println(noOfLogs);
+            logger.info("Fetching the elasticsearch logs");
             if (noOfLogs > 0) {
                 for (JsonNode hit : hits) {
                     String log = hit.get("_source").get("log").asText();
