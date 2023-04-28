@@ -27,11 +27,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 @RestController
 @RequestMapping("/api")
 public class StackController  {
+
+    private static final Logger logger = LoggerFactory.getLogger(StackController.class);
 
 
     @Value("${stackoverflow.url}")
@@ -41,6 +46,8 @@ public class StackController  {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/stackoverflow")
     public List<String> search(@RequestParam("input") String keyword) {
+
+        logger.info("Entered into stackoverflow api call");
         System.out.println(keyword);
         RestTemplate restTemplate = new RestTemplate();
         String searchStackUrl = STACKOVERFLOW_URL +"'"+ URLEncoder.encode(keyword, StandardCharsets.UTF_8) + "'"+"&site=stackoverflow";
@@ -83,6 +90,7 @@ public class StackController  {
 
 
                            JsonNode firsthits = responseJson.get("items");
+                  logger.info("Fetching the results of stackoverflow api call");
                           if(firsthits.size()>0) {
                             for ( i = 0; i <= 25 && i < firsthits.size(); i++) {
                                 JsonNode firstResult = firsthits.get(i);

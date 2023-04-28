@@ -13,10 +13,15 @@ import org.json.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @RestController
 @RequestMapping("/api")
 public class ConfluenceController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConfluenceController.class);
 
 
     @Value("${confluence.url}")
@@ -31,6 +36,8 @@ public class ConfluenceController {
     @GetMapping("/confluence")
     public List<String> search(@RequestParam("input") String keyword,
                                @RequestParam("service") String service) {
+
+        logger.info("entered into confluence api call");
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(CONFLUENCE_USERNAME, CONFLUENCE_PASSWORD));
         System.out.println(service);
@@ -49,7 +56,7 @@ public class ConfluenceController {
         try {
             JSONObject jsonObj = new JSONObject(confluenceResponse);
             JSONArray results = jsonObj.getJSONArray("results");
-
+            logger.info("fetching the results from confluence page");
             if(results.length()>0) {
                 while (i < results.length()) {
                     if (i <= 25 ) {
