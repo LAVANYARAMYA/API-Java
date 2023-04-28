@@ -43,13 +43,13 @@ public class ElasticSearchController {
 
         String searchKibanaUrl = KIBANA_URL+ "\"" +keyword +"\""+ " AND @timestamp: [" ;
 
-        String timeUrl = startdateString +"T" +startTime+ ".000Z TO " +enddateString+ "T" +endTime + ".000Z]&size=50";
+        String timeUrl = startdateString +"T" +startTime+ ".000Z TO " +enddateString+ "T" +endTime + ".000Z]";
         String serviceUrl=" AND kubernetes.labels.app='"+service+"'";
 
 
        // String url_link= "http://localhost:9200/logstash*/_search?q=trace AND @timestamp: [2023-04-16T18:30:00.000Z TO 2023-04-17T11:30:00.000Z]";
 
-        String url_link= searchKibanaUrl+timeUrl;
+        String url_link= searchKibanaUrl+timeUrl+serviceUrl+"&size=50";
 
        System.out.println(url_link);
 
@@ -84,6 +84,7 @@ public class ElasticSearchController {
             } else {
                 obtained_logs.add("Keyword not found");
             }
+            System.out.println(obtained_logs.size());
         }
 
             catch(JSONException e){
