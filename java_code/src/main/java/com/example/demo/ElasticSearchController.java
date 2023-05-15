@@ -47,7 +47,33 @@ public class ElasticSearchController {
         //String timeUrl = startdateString +"T" + "'"+startTime+ "'"+ ":00.000Z TO " + "'"+enddateString+ "'" + "T" +  "'"+endTime + "'"+ ":00.000Z]&q='"+keyword+"'"+"&format=json" + "&size=50";
 
 
-        String searchKibanaUrl = KIBANA_URL+ "\"" +keyword +"\""+ " AND @timestamp: [" ;
+
+        String words[]=keyword.split(" ");
+
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            sb.append(words[i]);
+            if (i != words.length - 1) {
+                sb.append(" AND ");
+            }
+        }
+
+
+
+
+       // System.out.println(words);
+       String keyword2=sb.toString();
+        //int i=0;
+       // for(String keyword1: words)
+       // {
+
+
+         //  keyword2=String.join(" AND ",keyword2,keyword1);
+       // }
+
+        System.out.println(keyword2);
+        String searchKibanaUrl = KIBANA_URL+ "" +keyword2 + ""+ " AND @timestamp: [" ;
 
         String timeUrl = startdateString +"T" +startTime+ ".000Z TO " +enddateString+ "T" +endTime + ".000Z]";
         String serviceUrl=" AND kubernetes.labels.app='"+service+"'";
